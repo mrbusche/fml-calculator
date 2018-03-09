@@ -1,44 +1,52 @@
 package com.fml.calculator
 
+import me.tongfei.progressbar.ProgressBar
+import org.apache.commons.math3.util.CombinatoricsUtils
 import java.text.NumberFormat
 import java.util.*
 
 object Main {
 
     private var bestRevenue = 0
-    private var validCombos: Int = 0
-    private var invalidCombos: Int = 0
+    private var validCombos: Long = 0
+    private var invalidCombos: Long = 0
     // Sub 50 movies is instant
     // 55+ takes about a minute
     // 60 takes 3 minutes
     private val MOVIES = MoviesBuilder()
-            .addMovie(Movie("Empty", 0, -200), 2)
+            .addMovie(Movie("Empty", 0, -200), 3)
             // Movies of the week
-            .addMovie(Movie("Coco", 417, 2673), 2)
-            .addMovie(Movie("Justice League", 280, 1603), 3)
-            .addMovie(Movie("Wonder", 230, 1323), 4)
-            .addMovie(Movie("Thor", 134, 803), 7)
-            .addMovie(Movie("Murder", 132, 733), 7)
-            .addMovie(Movie("Daddy", 126, 670), 7)
-            .addMovie(Movie("Three Billboard", 74, 460), 8)
-            .addMovie(Movie("Lady Bird", 66, 345), 8)
-            .addMovie(Movie("The Star", 60, 326), 8)
-            .addMovie(Movie("Bad Mom", 44, 256), 8)
-            .addMovie(Movie("Roman", 36, 223), 8)
-            .addMovie(Movie("The Man", 14, 59), 8)
-            .addMovie(Movie("The Disaster", 13, 36), 8)
-            .addMovie(Movie("Call Me", 8, 30), 8)
-            .addMovie(Movie("Wonder Wheel", 6, 25), 8)
+            .addMovie(Movie("A Wrinkle in Time", 641, 4032), 1)
+            .addMovie(Movie("Black Panther", 575, 3900), 1)
+            .addMovie(Movie("Strangers", 126, 847), 7)
+            .addMovie(Movie("Red Sparrow", 121, 817), 0)
+            .addMovie(Movie("Peter Rabbit", 107, 687), 0)
+            .addMovie(Movie("Game Night", 97, 670), 0)
+            .addMovie(Movie("Death Wish", 85, 640 + 200), 8)
+            .addMovie(Movie("Hurrican heist", 78, 460), 2)
+            .addMovie(Movie("Shape of Water", 48, 325), 0)
+            .addMovie(Movie("Gringo", 48, 327), 2)
+            .addMovie(Movie("Jumanji", 47, 325), 2)
+            .addMovie(Movie("Thoroughbreds", 47, 260), 0)
+            .addMovie(Movie("Annihilation", 44, 305), 2)
+            .addMovie(Movie("Greatest Showman", 29, 210), 3)
+            .addMovie(Movie("Fifty Shades", 25, 160), 4)
             .build()
+
+    private var movieCombos = CombinatoricsUtils.binomialCoefficient(MOVIES.size, 8)
+    private var progressBar: ProgressBar = ProgressBar("Simulating:", movieCombos)
 
     @JvmStatic
     fun main(args: Array<String>) {
         val startTime = System.nanoTime()
         println("Total movies: " + MOVIES.size)
+        println("Movie Combos: " + movieCombos)
 
         val blah = Movie("Blah", 0, 0)
 
+        progressBar.start()
         combinations2(8, 0, arrayOf(blah, blah, blah, blah, blah, blah, blah, blah))
+        progressBar.stop()
 
         val duration = System.nanoTime() - startTime
 
@@ -50,6 +58,7 @@ object Main {
 
     private fun combinations2(screensRemaining: Int, screenPosition: Int, movieTheater: Array<Movie>) {
         if (screensRemaining == 0) {
+            progressBar.step()
             if (MovieTheater.totalCost(movieTheater) <= 1000) {
                 validCombos++
                 val revenue = MovieTheater.totalRevenue(movieTheater)
@@ -69,4 +78,3 @@ object Main {
         }
     }
 }
-
