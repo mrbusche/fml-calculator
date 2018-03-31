@@ -33,7 +33,7 @@ object Main {
     fun main(args: Array<String>) {
         val startTime = System.nanoTime()
 
-        CombosWithReps<Movie>(8, MOVIES).getComboList().map { movies ->
+        CombosWithReps(8, MOVIES).getComboList().map { movies ->
             MovieTheater(movies)
         }.forEach { theater ->
             if (theater.totalCost() <= 1000) {
