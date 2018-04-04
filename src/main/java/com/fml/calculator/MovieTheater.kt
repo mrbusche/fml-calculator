@@ -9,12 +9,4 @@ class MovieTheater(private val theater: List<Movie>) {
     override fun toString(): String {
         return "MovieTheater($theater)"
     }
-
-    companion object {
-        fun totalRevenue(movies: Array<Movie>): Int = movies.sumBy { it.revenue }
-
-        fun totalCost(movies: Array<Movie>): Int = movies.sumBy { it.cost }
-    }
-
-
 }
