@@ -6,53 +6,38 @@ import java.util.*
 object Main {
 
     private var bestRevenue = 0
-    private var validCombos: Long = 0
-    private var invalidCombos: Long = 0
 
     private val MOVIES = listOf(
             Movie("Empty", 0, -200),
             // Movies of the week
-            Movie("Ready Player One", 522, 3942),
-            Movie("Acrimony", 219, 1605),
-            Movie("Pacific Rim", 167, 1095),
-            Movie("I can only", 153, 1080),
-            Movie("Black Panther", 148, 1090),
-            Movie("Sherlock Gnomes", 91, 625),
-            Movie("God's Not Dead", 75, 477),
-            Movie("Love Simon", 71, 497),
-            Movie("Isle of Dogs", 69, 405),
-            Movie("Tomb Raider", 65, 480),
-            Movie("A Wrinkle in Time", 54, 423),
-            Movie("Game Night", 41, 320),
-            Movie("Paul", 41, 356 + 200),
-            Movie("Midnight Sun", 28, 200),
-            Movie("Unsane", 23, 180)
+            Movie("A quiet place", 460, 3220),
+            Movie("Ready Player One", 334, 2180),
+            Movie("Cock Blockers", 217, 1520),
+            Movie("Black Panther", 108, 720),
+            Movie("Acrimony", 103, 650),
+            Movie("I can only imagine", 96, 620),
+            Movie("Isle of Dogs", 62, 360),
+            Movie("Pacific Rim", 58, 400),
+            Movie("Gnomes", 57, 450),
+            Movie("Miracle Season", 53, 380),
+            Movie("Chappaquiddick", 50, 230),
+            Movie("Wrinkle", 39, 270),
+            Movie("Love Simon", 39, 270),
+            Movie("Tomb Raider", 34, 230),
+            Movie("Paul", 26, 160)
     )
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val startTime = System.nanoTime()
-
-        CombosWithReps(8, MOVIES).getComboList().map { movies ->
-            MovieTheater(movies)
-        }.forEach { theater ->
-            if (theater.totalCost() <= 1000) {
-                validCombos++
-                val revenue = theater.totalRevenue()
-                if (revenue > bestRevenue) {
-                    bestRevenue = revenue
-                    println(revenue.toString() + " " + theater)
+        CombosWithReps(8, MOVIES).getComboList()
+                .map { MovieTheater(it) }
+                .filter { it.totalCost() <= 1000 }
+                .forEach {
+                    val revenue = it.totalRevenue()
+                    if (revenue > bestRevenue) {
+                        bestRevenue = revenue
+                        println(revenue.toString() + " " + it)
+                    }
                 }
-            } else {
-                invalidCombos++
-            }
-        }
-
-        val duration = System.nanoTime() - startTime
-
-        val numberFormat = NumberFormat.getNumberInstance(Locale.US)
-        println("Valid Combos ${numberFormat.format(validCombos)}")
-        println("Invalid Combos ${numberFormat.format(invalidCombos)}")
-        println("Done - ${duration / 1000000000} seconds")
     }
 }
