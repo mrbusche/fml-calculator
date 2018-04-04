@@ -1,12 +1,6 @@
 package com.fml.calculator
 
-import java.text.NumberFormat
-import java.util.*
-
 object Main {
-
-    private var bestRevenue = 0
-
     private val MOVIES = listOf(
             Movie("Empty", 0, -200),
             // Movies of the week
@@ -32,12 +26,12 @@ object Main {
         CombosWithReps(8, MOVIES).getComboList()
                 .map { MovieTheater(it) }
                 .filter { it.totalCost() <= 1000 }
-                .forEach {
-                    val revenue = it.totalRevenue()
-                    if (revenue > bestRevenue) {
-                        bestRevenue = revenue
-                        println(revenue.toString() + " " + it)
-                    }
-                }
+                .groupBy { it.totalRevenue() }
+                .toSortedMap()
+                .toList()
+                .asReversed()
+                .take(5)
+                .forEach { println(it) }
+
     }
 }
