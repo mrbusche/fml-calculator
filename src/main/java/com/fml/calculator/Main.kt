@@ -1,24 +1,26 @@
 package com.fml.calculator
 
 object Main {
+    private val startTime = System.currentTimeMillis()
+
     private val MOVIES = listOf(
             Movie("Empty", 0, -200),
             // Movies of the week
-            Movie("A quiet place", 460, 3220),
-            Movie("Ready Player One", 334, 2180),
-            Movie("Cock Blockers", 217, 1520),
-            Movie("Black Panther", 108, 720),
-            Movie("Acrimony", 103, 650),
-            Movie("I can only imagine", 96, 620),
-            Movie("Isle of Dogs", 62, 360),
-            Movie("Pacific Rim", 58, 400),
-            Movie("Gnomes", 57, 450),
-            Movie("Miracle Season", 53, 380),
-            Movie("Chappaquiddick", 50, 230),
-            Movie("Wrinkle", 39, 270),
-            Movie("Love Simon", 39, 270),
-            Movie("Tomb Raider", 34, 230),
-            Movie("Paul", 26, 160)
+            Movie("oceans 8", 626, 3923333),
+            Movie("hereditary", 219, 1014444),
+            Movie("solo", 218, 1380180),
+            Movie("deadpool 2", 201, 1267850),
+            Movie("hotel artemis", 138, 646666),
+            Movie("infinity", 93, 642500),
+            Movie("adrift", 89, 634350),
+            Movie("book club", 67, 478000),
+            Movie("upgrade", 32, 241875),
+            Movie("life of the party", 31, 202187),
+            Movie("breaking in", 24, 176000),
+            Movie("quiet place", 16, 110800),
+            Movie("overboard", 16, 102250),
+            Movie("action point", 15, 99050),
+            Movie("rbg", 11, 74300)
     )
 
     @JvmStatic
@@ -30,8 +32,8 @@ object Main {
                 .toSortedMap()
                 .toList()
                 .asReversed()
-                .take(5)
+                .take(10)
                 .forEach { println(it) }
-
+        println("" + (System.currentTimeMillis() - startTime) + "ms")
     }
 }
