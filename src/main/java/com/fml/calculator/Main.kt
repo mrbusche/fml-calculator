@@ -2,29 +2,33 @@ package com.fml.calculator
 
 object Main {
     private val startTime = System.currentTimeMillis()
+    private var bestPick = 0
+    private var currentRate = 0
 
     private val MOVIES = listOf(
             Movie("Empty", 0, -2000000),
             // Movies of the week
-            Movie("oceans 8", 626, 39233333),
-            Movie("hereditary", 219, 10144444),
-            Movie("solo", 218, 13801800),
-            Movie("deadpool 2", 201, 12678500),
-            Movie("hotel artemis", 138, 6466666),
-            Movie("infinity", 93, 6425000),
-            Movie("adrift", 89, 6343500),
-            Movie("book club", 67, 4780000),
-            Movie("upgrade", 32, 4418750),
-            Movie("life of the party", 31, 2021875),
-            Movie("breaking in", 24, 1760000),
-            Movie("quiet place", 16, 1108000),
-            Movie("overboard", 16, 1022500),
-            Movie("action point", 15, 990500),
-            Movie("rbg", 11, 743000)
+            Movie("incredibles", 591, 45025000),
+            Movie("saturday", 356, 25133103),
+            Movie("sunday", 278, 19590997),
+            Movie("uncle drew", 275, 14350000),
+            Movie("friday", 266, 18435899),
+            Movie("sicario", 201, 15075000),
+            Movie("oceans", 97, 7350000),
+            Movie("tag", 64, 5100000),
+            Movie("deadpool", 41, 3300000),
+            Movie("solo", 31, 2450000),
+            Movie("sanju", 30, 2000000),
+            Movie("hereditary", 24, 2050000),
+            Movie("neighbor", 24, 1800000),
+            Movie("superfly", 22, 1700000),
+            Movie("infinity", 18, 1500000)
     )
 
     @JvmStatic
     fun main(args: Array<String>) {
+        //var movieName = bestMoviePick(MOVIES)
+        //println(movieName)
         CombosWithReps(8, MOVIES).getComboList()
                 .map { MovieTheater(it) }
                 .filter { it.totalCost() <= 1000 }
@@ -36,4 +40,20 @@ object Main {
                 .forEach { println(it) }
         println("" + (System.currentTimeMillis() - startTime) + "ms")
     }
+
+//    fun bestMoviePick(MOVIES: List<Movie>) {
+//        var bestPickMovieName = ""
+//        println(MOVIES.size)
+//
+//        for (movie in MOVIES) {
+//            if (movie.cost > 0) {
+//                currentRate = movie.revenue / movie.cost
+//                if (currentRate > bestPick) {
+//                    bestPick = currentRate
+//                    bestPickMovieName = movie.name
+//                }
+//            }
+//        }
+//        return bestPickMovieName
+//    }
 }
